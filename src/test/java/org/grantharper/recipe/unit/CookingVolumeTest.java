@@ -5,15 +5,14 @@ import org.junit.Test;
 import tec.units.ri.function.RationalConverter;
 import tec.units.ri.quantity.Quantities;
 import tec.units.ri.unit.TransformedUnit;
-import tec.units.ri.unit.Units;
 
 import javax.measure.Quantity;
 import javax.measure.Unit;
-import javax.measure.UnitConverter;
 import javax.measure.quantity.Volume;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static tec.units.ri.unit.MetricPrefix.MILLI;
+import static org.grantharper.recipe.unit.CookingUnits.TABLESPOON;
+import static org.grantharper.recipe.unit.CookingUnits.TEASPOON;
 import static tec.units.ri.unit.Units.LITRE;
 
 public class CookingVolumeTest {
@@ -21,10 +20,6 @@ public class CookingVolumeTest {
     @Test
     public void exploreTeaspoonAndTablespoon() {
 
-        Unit<Volume> TEASPOON = new TransformedUnit<>("tsp", LITRE,
-                new RationalConverter(202.884, 1));
-
-        Unit<Volume> TABLESPOON = TEASPOON.multiply(3);
 
         Quantity<Volume> sugar = Quantities.getQuantity(3, TEASPOON);
 
