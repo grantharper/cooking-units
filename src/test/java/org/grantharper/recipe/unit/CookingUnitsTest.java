@@ -9,13 +9,13 @@ import javax.measure.quantity.Volume;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 import static org.grantharper.recipe.unit.CookingUnits.*;
 
-public class CookingVolumeTest {
+public class CookingUnitsTest {
 
     @Test
-    public void exploreTeaspoonAndTablespoon() {
+    public void testTeaspoonAndTablespoon() {
 
         Quantity<Volume> sugar = Quantities.getQuantity(3, TEASPOON);
 
@@ -24,8 +24,8 @@ public class CookingVolumeTest {
 
         Quantity<Volume> added = sugar.add(Quantities.getQuantity(3, TEASPOON));
 
+        assertThat(added.getUnit().getSymbol()).isEqualTo(TEASPOON.getSymbol());
         assertThat(added.getValue()).isEqualTo(6);
-        assertThat(added.getUnit()).isEqualTo(TEASPOON);
 
         assertThat(added.to(TABLESPOON).getUnit()).isEqualTo(TABLESPOON);
         assertThat(added.to(TABLESPOON).getValue()).isEqualTo(2.0);
@@ -92,8 +92,29 @@ public class CookingVolumeTest {
 
     }
 
+    @Test
+    public void testThirds() {
+        var quantity = Quantities.getQuantity(1, TABLESPOON);
+        var divided = quantity.divide(3);
+        var teaspoon = divided.to(TEASPOON);
 
+        assertThat(teaspoon.getValue()).isEqualTo(1.0);
 
+    }
 
+    @Test
+    public void testThirdCup() {
+        var cup = Quantities.getQuantity(1, CUP);
+        var thirdCup = cup.divide(3);
 
+        assertThat(thirdCup.getValue()).isEqualTo(1.0 / 3.0);
+    }
+
+    @Test
+    public void testCupsToTeaspoons() {
+        var cup = Quantities.getQuantity(1, CUP);
+        var teaspoon = cup.divide(48).to(TEASPOON);
+
+        assertThat(teaspoon.getValue()).isEqualTo(1.0);
+    }
 }
