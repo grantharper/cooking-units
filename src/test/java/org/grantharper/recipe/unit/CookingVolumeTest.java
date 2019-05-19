@@ -2,18 +2,14 @@ package org.grantharper.recipe.unit;
 
 
 import org.junit.Test;
-import tec.units.ri.function.RationalConverter;
 import tec.units.ri.quantity.Quantities;
-import tec.units.ri.unit.TransformedUnit;
 
 import javax.measure.Quantity;
-import javax.measure.Unit;
 import javax.measure.quantity.Volume;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.grantharper.recipe.unit.CookingUnits.TABLESPOON;
 import static org.grantharper.recipe.unit.CookingUnits.TEASPOON;
-import static tec.units.ri.unit.Units.LITRE;
 
 public class CookingVolumeTest {
 
@@ -36,5 +32,26 @@ public class CookingVolumeTest {
 
     }
 
+    @Test
+    public void testTablespoonsToTeaspoons() {
+
+        Quantity<Volume> quantity = Quantities.getQuantity(3, TABLESPOON);
+
+        Quantity<Volume> tsp = quantity.to(TEASPOON);
+
+        assertThat(tsp.getUnit()).isEqualTo(TEASPOON);
+        assertThat(tsp.getValue()).isEqualTo(9.0);
+
+    }
+
+
+    @Test
+    public void exploreFractionTeaspoon() {
+        Quantity<Volume> fraction = Quantities.getQuantity(0.25, TEASPOON);
+
+        Quantity<Volume> divided = fraction.divide(2);
+
+        assertThat(divided.getValue()).isEqualTo(0.125);
+    }
 
 }
