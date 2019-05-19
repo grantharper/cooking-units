@@ -19,6 +19,7 @@ public class CookingUnits {
             new MultiplyConverter(3));
 
 
-//    public static final Unit<Volume>
+    public static final Unit<Volume> CUP = new TransformedUnit<>("cup", TABLESPOON,
+            new MultiplyConverter(16));
 
 }

@@ -8,8 +8,7 @@ import javax.measure.Quantity;
 import javax.measure.quantity.Volume;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.grantharper.recipe.unit.CookingUnits.TABLESPOON;
-import static org.grantharper.recipe.unit.CookingUnits.TEASPOON;
+import static org.grantharper.recipe.unit.CookingUnits.*;
 
 public class CookingVolumeTest {
 
@@ -53,5 +52,25 @@ public class CookingVolumeTest {
 
         assertThat(divided.getValue()).isEqualTo(0.125);
     }
+
+
+    @Test
+    public void testCupsToTablespoons() {
+
+        Quantity<Volume> flour = Quantities.getQuantity(1, CUP);
+
+        Quantity<Volume> divided = flour.divide(4);
+
+        Quantity<Volume> tbsp = divided.to(TABLESPOON);
+
+        assertThat(tbsp.getUnit()).isEqualTo(TABLESPOON);
+        assertThat(tbsp.getValue()).isEqualTo(4.0);
+    }
+
+
+
+
+
+
 
 }
