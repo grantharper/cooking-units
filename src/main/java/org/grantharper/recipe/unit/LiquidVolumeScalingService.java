@@ -5,7 +5,7 @@ import javax.measure.quantity.Volume;
 
 import static org.grantharper.recipe.unit.CookingUnits.*;
 
-public class ScalingService {
+public class LiquidVolumeScalingService {
 
     public Quantity<Volume> scale(Quantity<Volume> input, double scalingFactor) {
         if (scalingFactor < 1.0) {
@@ -22,13 +22,9 @@ public class ScalingService {
             System.out.println("Cup amount found");
             return convertCupsToAppropriateUnit(input);
         }
-        if (input.getUnit().equals(TEASPOON)) {
-            System.out.println("Teaspoon amount found");
-            return convertTeaspoonsToAppropriateUnit(input);
-        }
-        if (input.getUnit().equals(TABLESPOON)) {
-            System.out.println("Tablespoon amount found");
-            return convertTablespoonsToAppropriateUnit(input);
+        if (input.getUnit().equals(FLUID_OUNCE)) {
+            System.out.println("Fluid ounce amount found");
+            return convertFlOzToAppropriateUnit(input);
         }
         return input;
     }
@@ -36,26 +32,17 @@ public class ScalingService {
     private Quantity<Volume> convertCupsToAppropriateUnit(Quantity<Volume> input) {
         if (input.getValue().doubleValue() <= 0.0625) {
             return input.to(TEASPOON);
-        } else if (input.getValue().doubleValue() <= 0.25) {
-            return input.to(TABLESPOON);
+        } else if (input.getValue().doubleValue() <= 1.0) {
+            return input.to(FLUID_OUNCE);
         }
         return input;
     }
 
-    private Quantity<Volume> convertTeaspoonsToAppropriateUnit(Quantity<Volume> input) {
-        if (input.getValue().doubleValue() >= 12.0) {
+    private Quantity<Volume> convertFlOzToAppropriateUnit(Quantity<Volume> input) {
+        if (input.getValue().doubleValue() >= 8.0) {
             return input.to(CUP);
-        } else if (input.getValue().doubleValue() >= 6.0) {
-            return input.to(TABLESPOON);
-        }
-        return input;
-    }
-
-    private Quantity<Volume> convertTablespoonsToAppropriateUnit(Quantity<Volume> input) {
-        if (input.getValue().doubleValue() < 1.0) {
+        } else if (input.getValue().doubleValue() < 1.0) {
             return input.to(TEASPOON);
-        } else if (input.getValue().doubleValue() >= 4.0) {
-            return input.to(CUP);
         }
         return input;
     }

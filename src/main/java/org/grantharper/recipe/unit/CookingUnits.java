@@ -22,4 +22,7 @@ public class CookingUnits {
     public static final Unit<Volume> CUP = new TransformedUnit<>("cup", TABLESPOON,
             new MultiplyConverter(16));
 
+    public static final Unit<Volume> FLUID_OUNCE = new TransformedUnit<>(null, TABLESPOON,
+            new MultiplyConverter(2));
+
 }
