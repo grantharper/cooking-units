@@ -5,16 +5,7 @@ import javax.measure.quantity.Volume;
 
 import static org.grantharper.recipe.unit.CookingUnits.*;
 
-public class DryVolumeScalingService implements ScalingService<Volume> {
-
-    public Quantity<Volume> scale(Quantity<Volume> input, double scalingFactor) {
-        if (scalingFactor < 1.0) {
-            return convertToAppropriateUnit(input.divide(1.0 / scalingFactor));
-        } else if (scalingFactor > 1.0) {
-            return convertToAppropriateUnit(input.multiply(scalingFactor));
-        }
-        return input;
-    }
+public class DryVolumeScalingService extends ScalingServiceAbstract<Volume> {
 
     Quantity<Volume> convertToAppropriateUnit(Quantity<Volume> input) {
 
